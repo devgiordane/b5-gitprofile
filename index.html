@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS only -->
+    <link
+      rel="stylesheet"
+      href="bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/64f2b3b3bc.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container-fluid">
+        <div class="row bg-primary pb-5">
+          <div class="col-12 p-5">
+            <img
+              :src="dados.avatar_url"
+              alt=""
+              class="img-fluid mx-auto d-block img-thumbnail rounded-circle"
+              style="max-height: 180px"
+            />
+          </div>
+          <div class="col-12 text-center text-white">
+            <h3>{{dados.login}}</h3>
+            <a :href="dados.html_url" class="font-weight-bold text-white"
+              ><i class="fa fa-external-link-alt"></i> {{dados.html_url}}</a
+            >
+          </div>
+        </div>
+        <div
+          class="row text-center g-2 py-2 text-black-50 d-flex justify-content-center"
+        >
+          <div class="col-lg-3 col-4 mx-2 mx-lg-0 rounded bg-light">
+            <p class="lead">public repos</p>
+            <span class="font-weight-bold">{{dados.public_repos}}</span>
+          </div>
+          <div class="col-lg-3 col-4 mx-2 mx-lg-0 rounded bg-light">
+            <p class="lead">public gists</p>
+            <span class="font-weight-bold">{{dados.public_gists}}</span>
+          </div>
+          <div class="col-lg-3 col-4 mx-2 mx-lg-0 rounded bg-light">
+            <p class="lead">followers</p>
+            <span class="font-weight-bold">{{dados.followers}}</span>
+          </div>
+          <div class="col-lg-3 col-4 mx-2 mx-lg-0 rounded bg-light">
+            <p class="lead">following</p>
+            <span class="font-weight-bold">{{dados.following}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h4 class="text-center">BIO</h4>
+          </div>
+          <div class="col-12">
+            <h5>{{dados.name}}</h5>
+            <p class="py-3 bg-light rounded pl-3">
+              <i class="fa fa-map-marker-alt"></i> {{dados.location}}
+            </p>
+            <p class="py-3 bg-light rounded pl-3">
+              <i class="fa fa-pencil-alt"></i> {{dados.bio}}
+            </p>
+            <p class="py-3 bg-light rounded pl-3">
+              <i class="fab fa-twiter"></i> {{dados.twitter_username}}
+            </p>
+            <p class="py-3 bg-light rounded pl-3">
+              <i class="fa fa-link"></i> {{dados.blog}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="vue.js"></script>
+    <!-- JavaScript and dependencies -->
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="axios.min.js"></script>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          dados: [],
+        },
+        created() {
+          axios
+            .get("https://api.github.com/users/devgiordane")
+            .then((response) => {
+              console.log(response);
+              this.dados = response.data;
+            });
+        },
+      });
+    </script>
+  </body>
+</html>
